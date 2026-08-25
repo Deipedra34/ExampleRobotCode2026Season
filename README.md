@@ -128,4 +128,4 @@ under BSD 3-Clause — see [WPILib-License.md](WPILib-License.md).
 
 ---
 
-<p align="center"><em>by Deipedra</em></p>
+<p align="center"><em>-by Deipedra</em></p>
