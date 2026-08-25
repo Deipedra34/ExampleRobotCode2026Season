@@ -44,14 +44,15 @@ public final class Constants {
         public static final boolean RIGHT_FLYWHEEL_2_INVERTED = false;
         public static final boolean FEEDER_INVERTED          = true;
 
-        // velocity PID + FF, units are rotor rps, still needs tuning
+        // velocity PID + FF, units are rotor rps. threw these numbers in from a similar
+        // robot last year, haven't actually characterized this one yet
         public static final double FLYWHEEL_KP = 0.1;
         public static final double FLYWHEEL_KI = 0.0;
         public static final double FLYWHEEL_KD = 0.0;
         public static final double FLYWHEEL_KS = 0.1;   // static friction (volts)
         public static final double FLYWHEEL_KV = 0.12;  // volts per rps
 
-        public static final double SHOOT_RPS           = 80.0; // target flywheel speed, needs tuning
+        public static final double SHOOT_RPS           = 80.0; // guess for now, gotta get on the practice field and dial this in
         public static final double SPEED_TOLERANCE_RPS =  3.0;
 
         public static final double FEEDER_SPEED         =  0.8;
@@ -89,7 +90,8 @@ public final class Constants {
         // (50 * whatever that extra reduction is) - 36.0 has never actually been verified
         public static final double PIVOT_GEAR_RATIO = 36.0;
 
-        // pivot setpoints (mechanism rotations), needs tuning
+        // pivot setpoints, mechanism rotations - measured off CAD, not the real bot, so
+        // these will probably move once it's built
         public static final double PIVOT_STOWED_ROT    =  0.0;
         public static final double PIVOT_DEPLOYED_ROT  = 10.0;
         public static final double PIVOT_TOLERANCE_ROT =  0.3;
@@ -105,7 +107,7 @@ public final class Constants {
 
         public static final boolean ROLLER_INVERTED = false;
 
-        public static final double ROLLER_INTAKE_SPEED = 0.8; // needs tuning
+        public static final double ROLLER_INTAKE_SPEED = 0.8; // felt fine on the carpet in the shop, might be different on field carpet
 
         public static final int ROLLER_SUPPLY_LIMIT = 30;
         public static final int ROLLER_STATOR_LIMIT = 40; // x44, so lower than the x60 limit

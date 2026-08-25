@@ -9,10 +9,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 
-/**
- * tests the swerve kinematics conversions
- * WPILib's math classes don't need the HAL
- */
+// sanity-checking SwerveDriveKinematics against the numbers in DriveConstants, mostly so
+// a bad module offset or a flipped sign somewhere doesn't slip through unnoticed
 class SwerveKinematicsTest {
 
     // copied the robot geometry from Constants.DriveConstants

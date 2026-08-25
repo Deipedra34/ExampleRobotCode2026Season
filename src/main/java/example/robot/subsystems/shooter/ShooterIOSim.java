@@ -1,9 +1,7 @@
 package example.robot.subsystems.shooter;
 
-/**
- * kinematic-level sim: writes the setpoint straight into the TalonFX sim states with
- * no lag (not a full FlywheelSim physics model, but good enough for testing command logic).
- */
+/** should probably swap this for a real FlywheelSim at some point, but for now it just
+ * jumps straight to the target velocity - good enough to test AlignShootCommand's timing */
 public class ShooterIOSim extends ShooterIOHardware {
 
     private double targetRps = 0.0;

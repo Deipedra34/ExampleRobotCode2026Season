@@ -2,10 +2,9 @@ package example.robot.subsystems.intake;
 
 import example.robot.Constants.IntakeConstants;
 
-/**
- * kinematic-level sim: writes the pivot's position setpoint straight into the rotor
- * position with no lag.
- */
+// no physics model here, just snaps the rotor to wherever we told it to go. fine for
+// checking command sequencing in sim, obviously won't catch anything about how fast the
+// arm actually moves
 public class IntakeIOSim extends IntakeIOHardware {
 
     private double targetPositionRot = 0.0;

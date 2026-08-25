@@ -1,10 +1,8 @@
 package example.robot.subsystems.drive;
 
-/**
- * CommandSwerveDrivetrain already runs its own sim thread (updateSimState) whenever
- * Utils.isSimulation() is true, and device access goes through the same CTRE
- * TalonFX/CANcoder/Pigeon2 sim states either way. So there's nothing to do differently
- * from Hardware here - this class only exists to keep the IO naming pattern consistent.
- */
+// CTRE already handles the sim thread for us (CommandSwerveDrivetrain kicks it off via
+// updateSimState when Utils.isSimulation() is true), and it goes through the same
+// TalonFX/CANcoder/Pigeon2 sim states regardless. this subclass is basically just here so
+// DriveIOHardware/DriveIOSim matches the pattern the other subsystems use
 public class DriveIOSim extends DriveIOHardware {
 }

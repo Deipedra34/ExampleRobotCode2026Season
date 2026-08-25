@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -294,6 +295,11 @@ public class LimelightHelpers {
                 && Double.compare(ta, o.ta) == 0 && Double.compare(distToCamera, o.distToCamera) == 0
                 && Double.compare(distToRobot, o.distToRobot) == 0 && Double.compare(ambiguity, o.ambiguity) == 0;
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, txnc, tync, ta, distToCamera, distToRobot, ambiguity);
+        }
     }
 
     public static class RawTarget {
@@ -307,6 +313,11 @@ public class LimelightHelpers {
             if (obj == null || getClass() != obj.getClass()) return false;
             RawTarget o = (RawTarget) obj;
             return Double.compare(txnc, o.txnc) == 0 && Double.compare(tync, o.tync) == 0 && Double.compare(ta, o.ta) == 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(txnc, tync, ta);
         }
     }
 
@@ -354,6 +365,12 @@ public class LimelightHelpers {
                 && Double.compare(that.avgTagDist, avgTagDist) == 0
                 && Double.compare(that.avgTagArea, avgTagArea) == 0
                 && pose.equals(that.pose) && Arrays.equals(rawFiducials, that.rawFiducials);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(pose, timestampSeconds, latency, tagCount, tagSpan, avgTagDist,
+                avgTagArea, Arrays.hashCode(rawFiducials), isMegaTag2);
         }
     }
 

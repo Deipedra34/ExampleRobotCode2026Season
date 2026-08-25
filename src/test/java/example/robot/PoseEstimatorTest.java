@@ -13,10 +13,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.util.Units;
 
-/**
- * tests how SwerveDrivePoseEstimator behaves
- * these are pure math tests, no HAL needed, so no hardware has to spin up
- */
+/** wanted to make sure I actually understood how the vision std-devs trade off against
+ * odometry before wiring VisionSubsystem up for real - this is just exercising that. */
 class PoseEstimatorTest {
 
     private static final double TRACK = Units.inchesToMeters(23.5);

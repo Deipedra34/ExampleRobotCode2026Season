@@ -3,10 +3,8 @@ package example.robot;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-/**
- * tests the plain math functions that live inside the limelight subsystem
- * no hardware needed, no HAL to spin up, so these are just normal unit tests
- */
+// the trig for distance-to-target and the tx->rotation P loop, pulled out so it's testable
+// without needing an actual Limelight plugged in
 class LimelightMathTest {
 
     // values pulled from Constants.VisionConstants (assuming they stay put)

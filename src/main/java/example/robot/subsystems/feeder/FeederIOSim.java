@@ -1,5 +1,6 @@
 package example.robot.subsystems.feeder;
 
-/** open-loop (duty cycle) roller - nothing extra needed for sim. */
+// it's just a duty-cycle roller, no closed loop involved, so hardware and sim behave
+// identically and there's nothing to override
 public class FeederIOSim extends FeederIOHardware {
 }
