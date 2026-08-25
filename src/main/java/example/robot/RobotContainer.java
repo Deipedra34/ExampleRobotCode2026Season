@@ -66,20 +66,20 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        // Y -> gryo sifirla
+        // Y -> reset gyro
         controlBoard.zeroHeading().onTrue(DriveFactory.zeroHeading(drive));
 
-        // B -> intake toggle
+        // B -> toggle intake
         controlBoard.intakeToggle().onTrue(IntakeFactory.toggle(intake));
 
-        // LT basili tutulunca alma rulosu doner
+        // LT held -> intake roller spins
         controlBoard.intakeRoller().whileTrue(IntakeFactory.runRollerWhileHeld(intake));
 
-        // RT -> vision hizalama + atis + intake pulse dongusu
+        // RT -> vision-assisted aim + shoot, with the intake pulse loop
         controlBoard.alignAndShoot().whileTrue(
             new AlignShootCommand(drive, shooter, intake, feeder, vision, controlBoard));
 
-        // RB -> manuel atis
+        // RB -> manual shot
         controlBoard.manualShoot().whileTrue(ShooterFactory.manualShoot(shooter));
     }
 

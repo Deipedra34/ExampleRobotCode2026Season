@@ -10,12 +10,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 
 /**
- * swerve kinematik dönüşümlerini test eder
- * WPILib math sınıfları HAL gerektirmez
+ * tests the swerve kinematics conversions
+ * WPILib's math classes don't need the HAL
  */
 class SwerveKinematicsTest {
 
-    // Constants.DriveConstants tan kopyaladım robot geometrisi
+    // copied the robot geometry from Constants.DriveConstants
     private static final double TRACK  = Units.inchesToMeters(23.5);
     private static final double BASE   = Units.inchesToMeters(23.5);
     private static final double MAX_V  = 4.5; // m/s
@@ -34,7 +34,7 @@ class SwerveKinematicsTest {
         );
         for (SwerveModuleState s : states) {
             assertEquals(0.0, s.angle.getRadians(), 1e-6,
-                "Düz ileri sürüşte tüm modüller 0 rad (ileri) bakmalı");
+                "driving straight forward, every module should point at 0 rad");
         }
     }
 
@@ -45,32 +45,32 @@ class SwerveKinematicsTest {
         );
         for (SwerveModuleState s : states) {
             assertEquals(1.5, s.speedMetersPerSecond, 1e-6,
-                "Düz sürüşte tüm modüller aynı hızda olmalı");
+                "driving straight, every module should be at the same speed");
         }
     }
 
     @Test
     void strafeDrive_allModulesPointLeft() {
-        // ySpeed pozitif = sola
+        // positive ySpeed = left
         SwerveModuleState[] states = KINEMATICS.toSwerveModuleStates(
             new ChassisSpeeds(0, 1.0, 0)
         );
         for (SwerveModuleState s : states) {
             assertEquals(Math.PI / 2, s.angle.getRadians(), 1e-6,
-                "Saf sola sürüşte tüm modüller 90 derece (sol) bakmalı");
+                "pure left strafe, every module should point 90 degrees (left)");
         }
     }
 
     @Test
     void desaturate_exceedingMaxSpeed_clampsToMax() {
-        // 10 m/s gibi bir değer işte desaturate MAX_V ye indirmeli
+        // something like 10 m/s should get clamped down to MAX_V by desaturate
         SwerveModuleState[] states = KINEMATICS.toSwerveModuleStates(
             new ChassisSpeeds(10.0, 0, 0)
         );
         SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_V);
         for (SwerveModuleState s : states) {
             assertTrue(s.speedMetersPerSecond <= MAX_V + 1e-6,
-                "Desaturate sonrası hız MAX_SPEED'i geçmemeli");
+                "after desaturating, speed shouldn't exceed MAX_SPEED");
         }
     }
 
@@ -82,20 +82,20 @@ class SwerveKinematicsTest {
         SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_V);
         for (SwerveModuleState s : states) {
             assertEquals(1.0, s.speedMetersPerSecond, 1e-6,
-                "Limit altındaki hız değiştirilmemeli");
+                "speed under the limit shouldn't be touched");
         }
     }
 
     @Test
     void pureRotation_allModulesHaveEqualSpeeds() {
-        // simetrik robot geometrisinde saf rotasyonda tüm modüller eşit hız alır
+        // for a symmetric robot, pure rotation gives every module the same speed
         SwerveModuleState[] states = KINEMATICS.toSwerveModuleStates(
             new ChassisSpeeds(0, 0, Math.PI)
         );
         double speed0 = states[0].speedMetersPerSecond;
         for (SwerveModuleState s : states) {
             assertEquals(speed0, s.speedMetersPerSecond, 1e-6,
-                "Simetrik robotun saf rotasyonunda tüm modül hızları eşit olmalı");
+                "on a symmetric robot, pure rotation should give equal module speeds");
         }
     }
 
@@ -104,6 +104,6 @@ class SwerveKinematicsTest {
         SwerveModuleState[] states = KINEMATICS.toSwerveModuleStates(
             new ChassisSpeeds(1.0, 0.5, 0.3)
         );
-        assertEquals(4, states.length, "4 modül durumu dönmeli");
+        assertEquals(4, states.length, "should get back 4 module states");
     }
 }

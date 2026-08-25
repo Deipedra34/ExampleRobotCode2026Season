@@ -1,6 +1,6 @@
 package example.robot.subsystems.vision;
 
-/** Simulasyonda gercek bir Limelight yok; hicbir zaman hedef gormeyen bir stub. */
+/** there's no real Limelight in sim, so this just stubs it out and never sees a target. */
 public class VisionIOSim implements VisionIO {
     @Override
     public void readInputs(VisionIOInputs inputs) {}

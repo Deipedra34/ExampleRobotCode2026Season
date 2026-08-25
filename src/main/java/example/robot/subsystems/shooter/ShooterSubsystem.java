@@ -21,26 +21,26 @@ public class ShooterSubsystem extends SubsystemBase {
         io.readInputs(inputs);
         Logger.processInputs("Shooter", inputs);
 
-        SmartDashboard.putNumber("Shooter/Hedef RPS", ShooterConstants.SHOOT_RPS);
-        SmartDashboard.putBoolean("Shooter/Hazir", isAtSpeed());
+        SmartDashboard.putNumber("Shooter/TargetRPS", ShooterConstants.SHOOT_RPS);
+        SmartDashboard.putBoolean("Shooter/Ready", isAtSpeed());
     }
 
-    /** dort flywheeli hedef hiza cikar */
+    /** spins all four flywheels up to the target speed */
     public void spinUp() {
         io.setVelocity(ShooterConstants.SHOOT_RPS);
     }
 
-    /** ozel hizda spinup (farkli mesafe/aci icin) */
+    /** spins up to a custom speed (for different distances/angles) */
     public void spinUp(double targetRPS) {
         io.setVelocity(targetRPS);
     }
 
-    /** notu flywheele dogru iter */
+    /** pushes the note into the flywheels */
     public void runFeeder() {
         io.setFeeder(ShooterConstants.FEEDER_SPEED);
     }
 
-    /** feederi geri cevir (sikisma acma) */
+    /** runs the feeder backwards to clear a jam */
     public void reverseFeeder() {
         io.setFeeder(ShooterConstants.FEEDER_REVERSE_SPEED);
     }
@@ -49,12 +49,12 @@ public class ShooterSubsystem extends SubsystemBase {
         io.setFeeder(0);
     }
 
-    /** flywheel + feeder durdur */
+    /** stops flywheels + feeder */
     public void stop() {
         io.stop();
     }
 
-    /** dort flywheel de hedef hiz bandinda mi? */
+    /** are all four flywheels within tolerance of target speed? */
     public boolean isAtSpeed() {
         double tol = ShooterConstants.SPEED_TOLERANCE_RPS;
         double target = ShooterConstants.SHOOT_RPS;

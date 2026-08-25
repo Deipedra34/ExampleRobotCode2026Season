@@ -8,12 +8,12 @@ import example.robot.subsystems.intake.IntakeSubsystem;
 public class IntakeFactory {
     private IntakeFactory() {}
 
-    /** B tusu: kapaliysa ac, aciksa stow konumuna don */
+    /** B button: deploy if stowed, stow if deployed */
     public static Command toggle(IntakeSubsystem intake) {
         return Commands.runOnce(intake::toggle, intake);
     }
 
-    /** LT basili tutulunca alma rulosu doner, birakinca durur */
+    /** roller spins while LT is held, stops when it's released */
     public static Command runRollerWhileHeld(IntakeSubsystem intake) {
         return Commands.startEnd(intake::runRoller, intake::stopRoller, intake);
     }

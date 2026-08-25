@@ -13,10 +13,10 @@ import example.robot.subsystems.vision.VisionSubsystem;
 
 /**
  * RT whileTrue:
- *   - surus  -> vision.getAimCorrection() ile otomatik rotasyon, sol cubuk driver kontrolunde
- *   - atis   -> flywheel spinup, hiza gelince feeder devreye girer
- *   - 3 sn atis sonrasi -> intake 0.4 s deploy + 0.4 s stow dongusu
- *     (intake bolgesindeki kalan notalar birer birer shooter'a beslenir)
+ *   - driving  -> vision.getAimCorrection() handles rotation, left stick still does X/Y
+ *   - shooting -> spin up the flywheels, feeder kicks in once we're at speed
+ *   - 3s after the feeder starts -> intake pulses deploy 0.4s / stow 0.4s
+ *     (walks whatever notes are still sitting in the intake into the shooter one at a time)
  */
 public class AlignShootCommand extends Command {
 
@@ -69,13 +69,13 @@ public class AlignShootCommand extends Command {
 
     @Override
     public void execute() {
-        // --- surus: vision hizalama ---
+        // --- driving: let vision handle the aim ---
         double xSpeed = controlBoard.getDriveX() * DriveConstants.MAX_SPEED_MPS;
         double ySpeed = controlBoard.getDriveY() * DriveConstants.MAX_SPEED_MPS;
         double rot = vision.getAimCorrection();
         drive.drive(xSpeed, ySpeed, rot, true);
 
-        // --- atis: spinup her dongude cagrilmali (Phoenix 6) ---
+        // --- shooting: spinUp has to be called every loop (Phoenix 6) ---
         shooter.spinUp();
         if (shooter.isAtSpeed()) {
             shooter.runFeeder();
@@ -86,7 +86,7 @@ public class AlignShootCommand extends Command {
             }
         }
 
-        // --- intake pulse: feeder 3 sn calistiktan sonra ---
+        // --- intake pulse, kicks in 3s after the feeder starts ---
         if (feederRunning && feederTimer.hasElapsed(PULSE_START_DELAY_S)) {
             if (!pulseActive) {
                 pulseActive   = true;

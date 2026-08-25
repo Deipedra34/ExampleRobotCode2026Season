@@ -23,6 +23,6 @@ public interface VisionIO {
 
     void readInputs(VisionIOInputs inputs);
 
-    /** MegaTag2 icin Limelight'a robot yonelimini (derece) gonderir. */
+    /** sends robot heading (degrees) to the Limelight, needed for MegaTag2. */
     void setRobotOrientation(double yawDegrees);
 }

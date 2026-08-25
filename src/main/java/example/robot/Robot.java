@@ -43,7 +43,7 @@ public class Robot extends LoggedRobot {
             RobotController.setTimeSource(RobotController::getFPGATime);
         }
 
-        // Phoenix6'nin kendi loglamasi AdvantageKit ile cakismasin
+        // don't let Phoenix6's own signal logging fight with AdvantageKit
         SignalLogger.enableAutoLogging(false);
 
         robotContainer = new RobotContainer();

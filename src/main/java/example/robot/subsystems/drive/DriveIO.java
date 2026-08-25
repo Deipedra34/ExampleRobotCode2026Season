@@ -25,7 +25,7 @@ public interface DriveIO {
 
     void setControl(SwerveRequest request);
 
-    /** Mevcut yonelimi "ileri" olarak sifirlar (eski gyro.reset() karsiligi). */
+    /** zeros out current heading as "forward" (this is what gyro.reset() used to do). */
     void zeroHeading();
 
     void resetOdometry(Pose2d pose);

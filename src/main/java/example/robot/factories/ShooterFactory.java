@@ -10,7 +10,7 @@ public class ShooterFactory {
 
     private static final double SPIN_UP_SECONDS = 1.4;
 
-    /** RB -> manuel: spinup bekle sonra feeder calisir; birakinca durur */
+    /** RB -> manual: wait for spinup, then run the feeder; stops when released */
     public static Command manualShoot(ShooterSubsystem shooter) {
         return Commands.sequence(
             Commands.run(shooter::spinUp, shooter).withTimeout(SPIN_UP_SECONDS),

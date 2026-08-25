@@ -10,7 +10,7 @@ public class AutoFactory {
 
     private static final String DEFAULT_AUTO_NAME = "New Auto";
 
-    /** deploy/pathplanner/autos/New Auto.auto dosyasini calistirir; bulunamazsa bos komut doner. */
+    /** runs deploy/pathplanner/autos/New Auto.auto; falls back to an empty command if it's missing. */
     public static Command autonomousCommand() {
         try {
             return new PathPlannerAuto(DEFAULT_AUTO_NAME);

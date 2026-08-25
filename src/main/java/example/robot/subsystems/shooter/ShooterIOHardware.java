@@ -10,9 +10,9 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import example.robot.Constants.ShooterConstants;
 
 /**
- * dort flywheel (2 sol, 2 sag) + feeder motoruyla calisir
- * flywheel: kraken x60 (velocity pid+ff)
- * feeder  : kraken x60 (duty cycle)
+ * four flywheels (2 left, 2 right) plus a feeder motor
+ * flywheels: kraken x60, velocity PID + FF
+ * feeder   : kraken x60, duty cycle
  */
 public class ShooterIOHardware implements ShooterIO {
 

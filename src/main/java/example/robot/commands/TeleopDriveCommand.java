@@ -6,7 +6,7 @@ import example.robot.Constants.DriveConstants;
 import example.robot.controlboard.ControlBoard;
 import example.robot.subsystems.drive.DriveSubsystem;
 
-/** teleop surus komutu - field-relative (varsayilan ve tek mod) */
+/** teleop driving, field-relative (that's the only mode we use) */
 public class TeleopDriveCommand extends Command {
 
     private final DriveSubsystem drive;

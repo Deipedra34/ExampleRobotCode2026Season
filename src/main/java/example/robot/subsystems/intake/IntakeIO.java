@@ -17,6 +17,6 @@ public interface IntakeIO {
 
     void setRoller(double dutyCycle);
 
-    /** Boot'ta pivot fiziksel olarak stow konumundayken baseline alir. */
+    /** call this while the pivot is physically stowed at boot, to set the baseline. */
     void resetPivotPosition();
 }

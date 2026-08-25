@@ -1,8 +1,8 @@
 package example.robot.subsystems.shooter;
 
 /**
- * Kinematik seviyede sim: setpoint'i gecikmesiz olarak TalonFX sim state'lerine yazar
- * (tam FlywheelSim fizik modeli degil - komut/mantik testleri icin yeterli).
+ * kinematic-level sim: writes the setpoint straight into the TalonFX sim states with
+ * no lag (not a full FlywheelSim physics model, but good enough for testing command logic).
  */
 public class ShooterIOSim extends ShooterIOHardware {
 

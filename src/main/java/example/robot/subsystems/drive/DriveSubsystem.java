@@ -50,7 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
         io.setControl(brakeRequest);
     }
 
-    /** Mevcut yonelimi "ileri" olarak sifirlar (eski Y tusu davranisi). */
+    /** zeros out current heading as "forward" (same as the old Y button behavior). */
     public void zeroHeading() {
         io.zeroHeading();
     }
@@ -67,7 +67,7 @@ public class DriveSubsystem extends SubsystemBase {
         io.resetOdometry(pose);
     }
 
-    /** VisionSubsystem tarafindan gecerli bir kamera olcumu bulundugunda cagrilir. */
+    /** called by VisionSubsystem whenever it has a valid camera measurement. */
     public void addVisionMeasurement(Pose2d visionPose, double timestampSeconds, Matrix<N3, N1> stdDevs) {
         io.addVisionMeasurement(visionPose, timestampSeconds, stdDevs);
     }

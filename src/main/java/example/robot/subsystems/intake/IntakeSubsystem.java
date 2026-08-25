@@ -8,14 +8,14 @@ import example.robot.Constants.IntakeConstants;
 import org.littletonrobotics.junction.Logger;
 
 /**
- * b tusu toggle: basta stow, ilk basista deploy, ikinci basista tekrar stow
+ * B button toggle: stowed at start, deploys on the first press, stows again on the second
  */
 public class IntakeSubsystem extends SubsystemBase {
 
     private final IntakeIO io;
     private final IntakeIOInputsAutoLogged inputs = new IntakeIOInputsAutoLogged();
 
-    // b tusu toggle durumu - encoder feedback'ten bagimsiz, hedeflenen konumu tutar
+    // tracks the B-button toggle state - independent of encoder feedback, just the setpoint we want
     private boolean deployed = false;
 
     public IntakeSubsystem(IntakeIO io) {
@@ -27,30 +27,30 @@ public class IntakeSubsystem extends SubsystemBase {
         io.readInputs(inputs);
         Logger.processInputs("Intake", inputs);
 
-        SmartDashboard.putBoolean("Intake/Acildi",   isDeployed());
-        SmartDashboard.putBoolean("Intake/Nota Var", inputs.hasNote);
-        // canli tune: SmartDashboard'dan "Intake/Deploy Hedef" yazarak degistiriyo
-        SmartDashboard.putNumber("Intake/Deploy Hedef",
-            SmartDashboard.getNumber("Intake/Deploy Hedef", IntakeConstants.PIVOT_DEPLOYED_ROT));
+        SmartDashboard.putBoolean("Intake/Deployed", isDeployed());
+        SmartDashboard.putBoolean("Intake/HasNote", inputs.hasNote);
+        // live tuning: edit "Intake/DeployTarget" on SmartDashboard to change this on the fly
+        SmartDashboard.putNumber("Intake/DeployTarget",
+            SmartDashboard.getNumber("Intake/DeployTarget", IntakeConstants.PIVOT_DEPLOYED_ROT));
     }
 
     private double getDeployTarget() {
-        return SmartDashboard.getNumber("Intake/Deploy Hedef", IntakeConstants.PIVOT_DEPLOYED_ROT);
+        return SmartDashboard.getNumber("Intake/DeployTarget", IntakeConstants.PIVOT_DEPLOYED_ROT);
     }
 
-    /** intakei zemine indir */
+    /** drops the intake down to the floor */
     public void deploy() {
         io.setPivotPosition(getDeployTarget());
         deployed = true;
     }
 
-    /** intakei robot icine topla */
+    /** pulls the intake back inside the robot */
     public void stow() {
         io.setPivotPosition(IntakeConstants.PIVOT_STOWED_ROT);
         deployed = false;
     }
 
-    /** b tusu: kapaliysa ac, aciksa eski (stow) konumuna dondur */
+    /** B button: deploy if stowed, go back to stow if it's already out */
     public void toggle() {
         if (deployed) {
             stow();
@@ -63,7 +63,7 @@ public class IntakeSubsystem extends SubsystemBase {
         stow();
     }
 
-    /** lt basili tutulunca alma rulosunu (x44) dondur */
+    /** spins the intake roller (x44) while LT is held */
     public void runRoller() {
         io.setRoller(IntakeConstants.ROLLER_INTAKE_SPEED);
     }
@@ -76,7 +76,7 @@ public class IntakeSubsystem extends SubsystemBase {
         return inputs.hasNote;
     }
 
-    /** pivot hedef konuma ulasti mi? */
+    /** has the pivot reached its target position? */
     public boolean isDeployed() {
         return Math.abs(inputs.pivotPositionRot - getDeployTarget()) < IntakeConstants.PIVOT_TOLERANCE_ROT;
     }

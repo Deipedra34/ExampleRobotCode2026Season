@@ -17,14 +17,15 @@ import edu.wpi.first.units.measure.*;
 import example.robot.subsystems.drive.CommandSwerveDrivetrain;
 
 /**
- * SDS MK5n swerve modulleri (Kraken X60 drive, Kraken X44 steer, CANcoder) icin CTRE Swerve API
- * sabitleri. Onceki elle yazilmis SwerveModule.java'daki kalibre edilmis degerlerin (CAN ID,
- * encoder offset, disli oranlari, akim limitleri) birebir tasinmis halidir.
+ * CTRE swerve API constants for the SDS MK5n modules (Kraken X60 drive, Kraken X44 steer,
+ * CANcoder). These are carried straight over from the calibrated values that used to live
+ * in the old hand-rolled SwerveModule.java - CAN ids, encoder offsets, gear ratios, current
+ * limits, all the same.
  *
- * <p>Drive Slot0 gains buradaki degerlerle (kP=1.5, kV=2.55804) CEVRILMEMIS halde tutulur -
- * SwerveModuleConstantsFactory bu degerleri kendi icinde disli orani + tekerlek yaricapina gore
- * mekanizma (m/s) birimine ceviriyor. Eski Constants.DriveConstants.DRIVE_KP/DRIVE_KV degerleri
- * bu ham degerlerin rotor RPS'e elle cevrilmis haliydi - burada TEKRAR cevirmeyin.
+ * <p>The drive Slot0 gains here (kP=1.5, kV=2.55804) are kept UN-scaled on purpose -
+ * SwerveModuleConstantsFactory converts them to mechanism (m/s) units internally using the
+ * gear ratio + wheel radius. The old Constants.DriveConstants.DRIVE_KP/DRIVE_KV were these
+ * same raw numbers hand-converted to rotor rps - don't convert them again here.
  */
 public class TunerConstants {
     private static final Slot0Configs steerGains = new Slot0Configs()
@@ -41,10 +42,10 @@ public class TunerConstants {
     private static final DriveMotorArrangement kDriveMotorType = DriveMotorArrangement.TalonFX_Integrated;
     private static final SteerMotorArrangement kSteerMotorType = SteerMotorArrangement.TalonFX_Integrated;
 
-    // Pro lisansi yoksa otomatik RemoteCANcoder'a duser (eski koddaki RemoteCANcoder davranisiyla ayni)
+    // falls back to RemoteCANcoder automatically without a Pro license (same as the old RemoteCANcoder behavior)
     private static final SteerFeedbackType kSteerFeedbackType = SteerFeedbackType.FusedCANcoder;
 
-    // Slip akimi = eski DRIVE_STATOR_CURRENT_LIMIT
+    // slip current = old DRIVE_STATOR_CURRENT_LIMIT
     private static final Current kSlipCurrent = Amps.of(120);
 
     private static final TalonFXConfiguration driveInitialConfigs = new TalonFXConfiguration()
@@ -64,13 +65,13 @@ public class TunerConstants {
     private static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
     private static final Pigeon2Configuration pigeonConfigs = null;
 
-    // Roborio'nun kendi (native) CAN bus'i - bu robotta CANivore kullanilmiyor
+    // the roboRIO's own native CAN bus - this robot doesn't run a CANivore
     public static final CANBus kCANBus = new CANBus("");
 
     public static final LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(4.69);
 
-    // Eski kodda azimuth-drive coupling modellenmiyordu; davranisi korumak icin 0.
-    // TODO: SDS MK5n'in gercek coupling oranini olcup girin (yaklasik 50/14).
+    // the old code never modeled azimuth-drive coupling, so this stays 0 to keep behavior the same.
+    // TODO: measure the SDS MK5n's actual coupling ratio and put it here (roughly 50/14).
     private static final double kCoupleRatio = 0.0;
 
     private static final double kDriveGearRatio = 7.03125;
@@ -82,7 +83,7 @@ public class TunerConstants {
 
     private static final int kPigeonId = 35;
 
-    // Sadece simulasyonda kullanilir
+    // only used in simulation
     private static final MomentOfInertia kSteerInertia = KilogramSquareMeters.of(0.01);
     private static final MomentOfInertia kDriveInertia = KilogramSquareMeters.of(0.035);
     private static final Voltage kSteerFrictionVoltage = Volts.of(0.2);
@@ -181,14 +182,14 @@ public class TunerConstants {
             kBackRightXPos, kBackRightYPos, kInvertRightSide, kBackRightSteerMotorInverted, kBackRightEncoderInverted
         );
 
-    /** RobotContainer'da sadece bir kez cagrilmali. */
+    /** should only be called once, from RobotContainer. */
     public static CommandSwerveDrivetrain createDrivetrain() {
         return new CommandSwerveDrivetrain(
             DrivetrainConstants, FrontLeft, FrontRight, BackLeft, BackRight
         );
     }
 
-    /** CTR Electronics Phoenix 6 API'sini kullanan swerve drive taban sinifi. */
+    /** swerve drive base class built on CTR Electronics' Phoenix 6 API. */
     public static class TunerSwerveDrivetrain extends SwerveDrivetrain<TalonFX, TalonFX, CANcoder> {
         public TunerSwerveDrivetrain(
             SwerveDrivetrainConstants drivetrainConstants,

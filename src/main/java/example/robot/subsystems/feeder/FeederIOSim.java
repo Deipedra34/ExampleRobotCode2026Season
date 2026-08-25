@@ -1,5 +1,5 @@
 package example.robot.subsystems.feeder;
 
-/** Acik-cevrim (duty cycle) roller - simde ek bir davranis gerekmiyor. */
+/** open-loop (duty cycle) roller - nothing extra needed for sim. */
 public class FeederIOSim extends FeederIOHardware {
 }

@@ -4,9 +4,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
- * Robotun tahmini pozunu merkezi olarak tutan singleton. DriveSubsystem her periodic'te
- * gunceller; VisionSubsystem (Limelight'a SetRobotOrientation gondermek icin) ve ileride
- * pose'a ihtiyac duyan baska her yer (auto, aim-while-move vb.) buradan okur.
+ * Keeps the robot's estimated pose in one place instead of scattering it around.
+ * DriveSubsystem updates it every periodic; VisionSubsystem reads it to send
+ * SetRobotOrientation to the Limelight, and anything else that ends up needing pose
+ * later (auto, aim-while-move, whatever) can just pull it from here.
  */
 public class RobotState {
     private static RobotState instance;

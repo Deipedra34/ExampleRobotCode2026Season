@@ -3,7 +3,8 @@ package example.robot.subsystems.intake;
 import example.robot.Constants.IntakeConstants;
 
 /**
- * Kinematik seviyede sim: pivot pozisyon setpoint'ini gecikmesiz olarak rotor pozisyonuna yazar.
+ * kinematic-level sim: writes the pivot's position setpoint straight into the rotor
+ * position with no lag.
  */
 public class IntakeIOSim extends IntakeIOHardware {
 

@@ -16,8 +16,9 @@ import example.robot.RobotState;
 import org.littletonrobotics.junction.Logger;
 
 /**
- * Limelight'i okuyup gecerli poz olcumlerini DriveSubsystem'e (pose estimator'a) besler.
- * Eskiden DriveSubsystem.fuseVision() icinde olan mantik buraya tasindi.
+ * Reads the Limelight and feeds valid pose measurements into DriveSubsystem's pose
+ * estimator. This used to be inline in DriveSubsystem.fuseVision() before it got pulled
+ * out into its own subsystem.
  */
 public class VisionSubsystem extends SubsystemBase {
 
@@ -60,7 +61,7 @@ public class VisionSubsystem extends SubsystemBase {
         SmartDashboard.putBoolean("LL/Aligned", isAimed());
     }
 
-    /** tx tabanli P kontrol donus duzeltmesi (rad/s); hedef yoksa 0. */
+    /** tx-based P control rotation correction (rad/s); 0 if there's no target. */
     public double getAimCorrection() {
         if (!inputs.hasTarget) return 0.0;
         return -VisionConstants.AIM_KP * inputs.tx;

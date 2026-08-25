@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import example.robot.Constants.IntakeConstants;
 
 /**
- * pivot motor (position pid, kraken x60) + alma rulosu (kraken x44) + beam break sensoru
+ * pivot motor (position PID, kraken x60) + intake roller (kraken x44) + beam break sensor
  */
 public class IntakeIOHardware implements IntakeIO {
 
@@ -68,7 +68,7 @@ public class IntakeIOHardware implements IntakeIO {
         inputs.pivotPositionRot       = pivot.getPosition().getValueAsDouble();
         inputs.pivotVelocityRotPerSec = pivot.getVelocity().getValueAsDouble();
         inputs.rollerDutyCycle        = roller.getDutyCycle().getValueAsDouble();
-        // beam break normalde kapali devre -> false = nota yok
+        // beam break is normally-closed -> false means no note
         inputs.hasNote = !beamBreak.get();
     }
 

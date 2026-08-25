@@ -14,11 +14,11 @@ public interface ShooterIO {
 
     void readInputs(ShooterIOInputs inputs);
 
-    /** Dort flywheeli de verilen hedef hiza (RPS) cikarir. */
+    /** spins all four flywheels up to the given target speed (RPS). */
     void setVelocity(double targetRps);
 
     void setFeeder(double dutyCycle);
 
-    /** Flywheel + feeder durdurur (coast). */
+    /** stops flywheels + feeder (coast). */
     void stop();
 }
