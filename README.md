@@ -22,6 +22,7 @@ works the same way whether it's driving real hardware or running in simulation.
   instead of read from real hardware.
 - **IO / Hardware / Sim split per subsystem** — each subsystem (`drive`, `shooter`,
   `intake`, `feeder`, `vision`) has:
+
   - `XxxIO` — the interface + `@AutoLog` inputs class
   - `XxxIOHardware` — talks to the real motor controllers/sensors
   - `XxxIOSim` — simulation behavior (for most subsystems here, this is a simple
@@ -73,27 +74,29 @@ src/test/java/example/robot/    pure-math unit tests (no HAL required)
 
 ## Subsystems
 
-| Subsystem | Hardware | Notes |
-|---|---|---|
-| Drive   | CTRE swerve modules, Pigeon 2 | Field/robot-centric driving, PathPlanner autos, vision pose fusion |
-| Shooter | 4× Kraken X60 flywheel, 1× feeder motor | Velocity PID + feedforward, all 4 flywheels driven together |
-| Intake  | Kraken X60 pivot (position PID), Kraken X44 roller | Beam-break sensor for note detection, deploy/stow toggle |
-| Feeder  | 1× roller motor | Open-loop duty cycle, sits between intake and shooter |
-| Vision  | Limelight | MegaTag1 + MegaTag2 pose estimates, fused into the drive pose estimator with different trust levels |
+
+| Subsystem | Hardware                                           | Notes                                                                                               |
+| --------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Drive     | CTRE swerve modules, Pigeon 2                      | Field/robot-centric driving, PathPlanner autos, vision pose fusion                                  |
+| Shooter   | 4× Kraken X60 flywheel, 1× feeder motor          | Velocity PID + feedforward, all 4 flywheels driven together                                         |
+| Intake    | Kraken X60 pivot (position PID), Kraken X44 roller | Beam-break sensor for note detection, deploy/stow toggle                                            |
+| Feeder    | 1× roller motor                                   | Open-loop duty cycle, sits between intake and shooter                                               |
+| Vision    | Limelight                                          | MegaTag1 + MegaTag2 pose estimates, fused into the drive pose estimator with different trust levels |
 
 ## Controls
 
 Driver Xbox controller only, all bindings live in `ControlBoard`/`RobotContainer`:
 
-| Input | Action |
-|---|---|
-| Left stick | Drive (field-relative X/Y) |
-| Right stick X | Rotate |
-| Y | Zero heading (reset "forward") |
-| B | Toggle intake deploy/stow |
-| Left trigger (held) | Run intake roller |
+
+| Input                | Action                                                                                                                   |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Left stick           | Drive (field-relative X/Y)                                                                                               |
+| Right stick X        | Rotate                                                                                                                   |
+| Y                    | Zero heading (reset "forward")                                                                                           |
+| B                    | Toggle intake deploy/stow                                                                                                |
+| Left trigger (held)  | Run intake roller                                                                                                        |
 | Right trigger (held) | Vision-assisted aim + shoot (spins up shooter, feeds automatically once at speed, pulses the intake to feed extra notes) |
-| Right bumper (held) | Manual shot (no vision aim, just spin up + feed) |
+| Right bumper (held)  | Manual shot (no vision aim, just spin up + feed)                                                                         |
 
 ## Vendor dependencies
 
@@ -125,4 +128,4 @@ under BSD 3-Clause — see [WPILib-License.md](WPILib-License.md).
 
 ---
 
-by Deipedra
+<p align="center"><em>by Deipedra</em></p>
