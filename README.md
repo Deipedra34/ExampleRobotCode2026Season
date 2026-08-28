@@ -77,7 +77,7 @@ src/test/java/example/robot/    pure-math unit tests (no HAL required)
 
 | Subsystem | Hardware                                           | Notes                                                                                               |
 | --------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Drive     | CTRE swerve modules, Pigeon 2                      | Field/robot-centric driving, PathPlanner autos, vision pose fusion                                  |
+| Drive     | CTRE swerve modules(MK5N), Pigeon 2                      | Field/robot-centric driving, PathPlanner autos, vision pose fusion                                  |
 | Shooter   | 4× Kraken X60 flywheel, 1× feeder motor          | Velocity PID + feedforward, all 4 flywheels driven together                                         |
 | Intake    | Kraken X60 pivot (position PID), Kraken X44 roller | Beam-break sensor for note detection, deploy/stow toggle                                            |
 | Feeder    | 1× roller motor                                   | Open-loop duty cycle, sits between intake and shooter                                               |
